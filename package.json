@@ -6,8 +6,10 @@
   "author": "Hank Stoever",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development yarn babel-node server",
-    "start": "NODE_ENV=production yarn babel-node server",
+    "dev": "set NODE_ENV=development && yarn babel-node server ",
+    "devlinux": "NODE_ENV=development yarn babel-node server",
+    "start": "set NODE_ENV=production && yarn babel-node server",
+    "startlinux": "NODE_ENV=production yarn babel-node server",
     "nodemon": "NODE_ENV=development nodemon -x 'yarn babel-node server/index.js'",
     "build": "next build",
     "heroku-postbuild": "next build",

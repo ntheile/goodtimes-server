@@ -1,26 +1,30 @@
 Arguments: 
-  /Users/hank/.nvm/versions/node/v8.12.0/bin/node /usr/local/Cellar/yarn/1.12.1/libexec/bin/yarn.js nodemon
+  C:\Program Files (x86)\nodejs\node.exe C:\Users\nick\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
 
 PATH: 
-  /Users/hank/.rvm/gems/ruby-2.0.0-p481/bin:/Users/hank/.rvm/gems/ruby-2.0.0-p481@global/bin:/Users/hank/.rvm/rubies/ruby-2.0.0-p481/bin:/Users/hank/.nvm/versions/node/v8.12.0/bin:/Users/hank/google-cloud-sdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/MacGPG2/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/hank/.rvm/gems/ruby-2.0.0-p481/bin:/Users/hank/.rvm/gems/ruby-2.0.0-p481@global/bin:/Users/hank/.rvm/rubies/ruby-2.0.0-p481/bin:/Users/hank/google-cloud-sdk/bin:/Users/hank/.rvm/bin:/Users/hank/.rvm/bin
+  C:\Python27\;C:\Python27\Scripts;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\ManagementStudio\;C:\Program Files (x86)\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\110\DTS\Binn\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Program Files (x86)\QuickTime\QTSystem\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft SDKs\TypeScript\1.0\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files\Maven\bin;C:\Program Files (x86)\nodejs\;C:\Program Files (x86)\Common Files\Acronis\VirtualFile\;C:\Program Files (x86)\Common Files\Acronis\VirtualFile64\;C:\Program Files (x86)\Common Files\Acronis\FileProtector\;C:\Program Files (x86)\Common Files\Acronis\FileProtector64\;C:\Program Files (x86)\Common Files\Acronis\SnapAPI\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\Microsoft VS Code\bin;C:\Users\nick\AppData\Roaming\npm;C:\Program Files\Docker Toolbox
 
 Yarn version: 
-  1.12.1
+  1.17.3
 
 Node version: 
-  8.12.0
+  8.9.3
 
 Platform: 
-  darwin x64
+  win32 x64
 
 Trace: 
-  SyntaxError: /Users/hank/radiks/banter/package.json: Unexpected string in JSON at position 373
-      at JSON.parse (<anonymous>)
-      at /usr/local/Cellar/yarn/1.12.1/libexec/lib/cli.js:1166:59
-      at Generator.next (<anonymous>)
-      at step (/usr/local/Cellar/yarn/1.12.1/libexec/lib/cli.js:92:30)
-      at /usr/local/Cellar/yarn/1.12.1/libexec/lib/cli.js:103:13
-      at <anonymous>
+  Error: https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.7.2.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (C:\Users\nick\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141091:19)
+      at Object.onceWrapper (events.js:313:30)
+      at emitNone (events.js:106:13)
+      at ClientRequest.emit (events.js:208:7)
+      at TLSSocket.emitTimeout (_http_client.js:708:34)
+      at Object.onceWrapper (events.js:313:30)
+      at emitNone (events.js:106:13)
+      at TLSSocket.emit (events.js:208:7)
+      at TLSSocket.Socket._onTimeout (net.js:407:8)
+      at ontimeout (timers.js:475:11)
 
 npm manifest: 
   {
@@ -33,7 +37,7 @@ npm manifest:
     "scripts": {
       "dev": "NODE_ENV=development yarn babel-node server",
       "start": "NODE_ENV=production yarn babel-node server",
-      "nodemon": "NODE_ENV=development nodemon -e 'yarn babel-node server'"
+      "nodemon": "NODE_ENV=development nodemon -x 'yarn babel-node server/index.js'",
       "build": "next build",
       "heroku-postbuild": "next build",
       "lint": "eslint ./common/**/*.js ./components/**/*.js ./pages/**/*.js --fix",
