@@ -18,10 +18,10 @@
     "nodemon": "NODE_ENV=development nodemon -x 'yarn babel-node server/index.js'",
     "build": "next build",
     "heroku-postbuild": "next build",
-    "heroku-live-logging": "heroku logs --app goodtimes-server --tail",
+    "live-logging": "heroku logs --app goodtimes-server --tail",
     "lint": "eslint ./common/**/*.js ./components/**/*.js ./pages/**/*.js --fix",
     "prettier": "prettier --config .prettierrc ./common/**/*.js ./components/**/*.js ./pages/**/*.js",
-    "babel-node": "babel-node --config-file ./babel-server.config.js",
+    "babel-node": "babel-node --config-file ./babel-server.config.js"
   },
   "dependencies": {
     "@awaitjs/express": "^0.3.0",
