@@ -1,6 +1,6 @@
 {
   "name": "Banter",
-  "start_url": "localhost:5000",
+  "start_url": "https://goodtimes-server-prod.herokuapp.com",
   "description": "A demo micro-blogging app, built with radiks.",
   "icons": [
     {
