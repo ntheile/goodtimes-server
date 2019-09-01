@@ -39,10 +39,10 @@ app.prepare().then(async () => {
     const isStaging = !!process.env.STAGING;
     if (!isStaging && req.hostname !== 'banter.pub') {
       console.log('Redirecting from non-production URL:', req.host);
-      return res.redirect('https://banter.pub');
+      // return res.redirect('https://banter.pub');
     } else if (isStaging && req.hostname !== 'staging.banter.pub') {
       console.log('Redirecting from non-staging URL:', req.host);
-      return res.redirect('https://staging.banter.pub');
+      // return res.redirect('https://staging.banter.pub');
     }
     return _next();
   });
