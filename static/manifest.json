@@ -1,7 +1,7 @@
 {
   "name": "Banter",
   "start_url": "https://goodtimes-server-prod.herokuapp.com",
-  "description": "A demo micro-blogging app, built with radiks.",
+  "description": "goodtimes backend",
   "icons": [
     {
       "src": "https://helloblockstack.com/icon-192x192.png",
