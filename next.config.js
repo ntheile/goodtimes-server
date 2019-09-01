@@ -1,5 +1,5 @@
-// let radiksServer = process.env.RADIKS_API_SERVER || 'http://localhost:5000';
-let radiksServer = 'http://goodtimes-server.ntheile.now.sh';
+let radiksServer = process.env.RADIKS_API_SERVER;
+// let radiksServer = 'http://goodtimes-server.ntheile.now.sh';
 //if (process.env.HEROKU_APP_NAME) {
 //  radiksServer = `https://${process.env.HEROKU_APP_NAME}.herokuapp.com`;
 //}
