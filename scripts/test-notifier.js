@@ -37,10 +37,10 @@ const sendTestNotifier = async () => {
   await notifier(db, message);
 };
 
-sendTestNotifier().then(() => {
-  console.log('done');
-  process.exit();
-}).catch((e) => {
-  console.error(e);
-  process.exit();
-});
+// sendTestNotifier().then(() => {
+//   console.log('done');
+//   process.exit();
+// }).catch((e) => {
+//   console.error(e);
+//   process.exit();
+// });
