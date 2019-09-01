@@ -1,10 +1,14 @@
 {
-  "name": "banter",
+  "name": "goodtimes",
   "version": "1.0.0",
-  "description": "A demo app built with radiks",
-  "main": "index.js",
-  "author": "Hank Stoever",
+  "description": "goodtimes server",
+  "main": "server/index.js",
+  "author": "Nick Theile",
   "license": "MIT",
+  "engines": {
+    "node": "10.16.0",
+    "yarn": "1.17.3"
+  },
   "scripts": {
     "dev": "set NODE_ENV=development && yarn babel-node server ",
     "startnew": "NODE_ENV=development yarn babel-node server",
