@@ -1,29 +1,30 @@
 const express = require('express');
 const next = require('next');
 const path = require('path');
-const expressWS = require('express-ws');
 const secure = require('express-force-https');
 const cookiesMiddleware = require('universal-cookie-express');
 require('dotenv').config();
-
 const { setup } = require('radiks-server');
 const { STREAM_CRAWL_EVENT } = require('radiks-server/app/lib/constants');
 const makeApiController = require('./ApiController');
 const notifier = require('../common/lib/notifier');
-
+const EventEmitter = require('wolfy87-eventemitter');
 const dev = process.env.NODE_ENV !== 'production';
-
-const app = next({ dev });
+let app = next({ dev });
+const emitter = new EventEmitter();
 const handle = app.getRequestHandler();
-
 const port = parseInt(process.env.PORT, 10) || 5000;
+import { PlaceController } from './PlaceController';
 
 app.prepare().then(async () => {
+  
   const server = express();
   server.use(cookiesMiddleware());
   server.use(secure);
 
-  expressWS(server);
+  // websockets
+  const expressWs = require('@small-tech/express-ws')(server);
+  server.ws(`/place/:placeId`, PlaceController);  
 
   const RadiksController = await setup();
   server.use('/radiks', RadiksController);
@@ -54,7 +55,7 @@ app.prepare().then(async () => {
   });
 
   server.use('/api', makeApiController(RadiksController.DB));
-
+  
   server.get('/messages/:id', (req, res) => {
     const { id } = req.params;
     app.render(req, res, '/message', { id });
@@ -75,4 +76,5 @@ app.prepare().then(async () => {
     if (err) throw err;
     console.log(`> Ready on http://localhost:${port}`);
   });
+
 });
