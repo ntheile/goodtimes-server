@@ -22,12 +22,16 @@ app.prepare().then(async () => {
   server.use(cookiesMiddleware());
   server.use(secure);
 
-  // websockets
-  const expressWs = require('@small-tech/express-ws')(server);
-  server.ws(`/place/:placeId`, PlaceController);  
+
 
   const RadiksController = await setup();
   server.use('/radiks', RadiksController);
+  
+
+  // custom websockets
+  let expressWs = require('@small-tech/express-ws')(server);
+  expressWs.RadiksController = RadiksController;
+  server.ws(`/place/:placeId`, PlaceController);  
 
   server.use((req, res, _next) => {
     if (dev) {
@@ -70,7 +74,13 @@ app.prepare().then(async () => {
 
   RadiksController.emitter.on(STREAM_CRAWL_EVENT, ([attrs]) => {
     notifier(RadiksController.DB, attrs);
+
+    
+
   });
+  
+
+ 
 
   server.listen(port, (err) => {
     if (err) throw err;
