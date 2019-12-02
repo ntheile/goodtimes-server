@@ -16,6 +16,10 @@ const handle = app.getRequestHandler();
 const port = parseInt(process.env.PORT, 10) || 5000;
 import { PlaceController } from './PlaceController';
 import 'localstorage-polyfill';
+const fetch = require('node-fetch');
+const Window = require('window');
+const window = new Window();
+global.window = window;
 import { 
   configureRadiks,
   createBlockchainIdentity,
@@ -23,6 +27,7 @@ import {
   makeUserSession, 
   makeProfileJSON, 
   saveProfileJSON  } from './../utils/profile';
+import { configure, User, UserGroup, GroupInvitation, Model, Central } from 'radiks';
 
 
 
@@ -36,7 +41,7 @@ app.prepare().then(async () => {
   const RadiksController = await setup();
   server.use('/radiks', RadiksController);
   
-  //await createKeyChain();
+  
 
   // custom websockets
   let expressWs = require('@small-tech/express-ws')(server);
@@ -84,24 +89,42 @@ app.prepare().then(async () => {
 
   RadiksController.emitter.on(STREAM_CRAWL_EVENT, ([attrs]) => {
     notifier(RadiksController.DB, attrs);
-
-    
-
   });
   
 
- 
 
   server.listen(port, (err) => {
     if (err) throw err;
     console.log(`> Ready on http://localhost:${port}`);
+    createKeyChain();
   });
+
+
+  
 
 });
 
 async function createKeyChain(){
   let keychain = await initWallet();
-  console.log('keychain',  keychain);
+  //console.log('keychain',  keychain);
   let id = await createBlockchainIdentity(keychain);
-  console.log('id',  id);
+  //console.log('id',  id);
+
+  let userSession = makeUserSession(id.appPrivateKey, id.appPublicKey, id.username, id.profileJSON.decodedToken.payload.claim);
+  //console.log('userSession', userSession);
+  await configureRadiks(userSession);
+  //console.log('config radiks sesh');
+  let blockstackUser = await User.createWithCurrentUser();
+  // console.log('blockstackUser', blockstackUser)
+  const radiksBatchAccount= {
+      backupPhrase: keychain.backupPhrase,
+      publicKey: id.appPublicKey,
+      privateKey: id.appPrivateKey,
+      userSession: userSession,
+      username: id.username,
+      error: 'none',
+      profileJSON: id.profileJSON
+  }
+  console.log('created radiksBatchAccount for the server! ', radiksBatchAccount);
+
 }

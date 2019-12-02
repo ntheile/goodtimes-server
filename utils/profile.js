@@ -38,7 +38,6 @@ var _this = this;
 exports.__esModule = true;
 var sessionStore_1 = require("blockstack/lib/auth/sessionStore");
 var bip39 = require("bip39");
-var bip32 = require("bip32");
 // @ts-ignore
 var _utils_1 = require("@utils"); // copied from the blockstack browser project utils https://github.com/blockstack/blockstack-browser/tree/master/app/js/utils
 var crypto = require("crypto");
@@ -72,7 +71,7 @@ exports.initWallet = function () { return __awaiter(_this, void 0, void 0, funct
                 return [4 /*yield*/, bip39.mnemonicToSeed(backupPhrase)];
             case 4:
                 seedBuffer = _a.sent();
-                return [4 /*yield*/, bip32.fromSeed(seedBuffer)];
+                return [4 /*yield*/, bitcoinjs.HDNode.fromSeedBuffer(seedBuffer)];
             case 5:
                 masterKeychain = _a.sent();
                 keychain = {
@@ -144,7 +143,6 @@ exports.createBlockchainIdentity = function (keychain, username, avatarUrl, iden
     if (avatarUrl === void 0) { avatarUrl = 'https://gaia.blockstack.org/hub/17xxYBCvxwrwKtAna4bubsxGCMCcVNAgyw/avatar-0'; }
     if (identitiesToGenerate === void 0) { identitiesToGenerate = 2; }
     return __awaiter(_this, void 0, void 0, function () {
-        
         var identityKeypairs, browserPublicKey, browserPrivateKey, browserKeyID, profile, userSession, profileResp, appPublicKey, appPrivateKey;
         return __generator(this, function (_a) {
             identityKeypairs = _utils_1.getBlockchainIdentities(keychain.masterKeychain, identitiesToGenerate).identityKeypairs;

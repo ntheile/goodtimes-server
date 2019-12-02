@@ -2,7 +2,6 @@ import { InstanceDataStore } from 'blockstack/lib/auth/sessionStore';
 // @ts-ignore
 import { UserData } from 'blockstack/lib/auth/authApp';
 import * as bip39 from 'bip39';
-import * as bip32 from 'bip32';
 // @ts-ignore
 import * as bip32utils from 'bip32-utils';
 // @ts-ignore
@@ -33,7 +32,7 @@ export const initWallet = async () => {
     console.log(backupPhrase);
     const seedBuffer = await bip39.mnemonicToSeed(backupPhrase)
  
-    masterKeychain = await bip32.fromSeed(seedBuffer)
+    masterKeychain = await bitcoinjs.HDNode.fromSeedBuffer(seedBuffer)
     let keychain = {
         backupPhrase: backupPhrase,
         masterKeychain: masterKeychain,

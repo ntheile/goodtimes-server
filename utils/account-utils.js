@@ -1,8 +1,7 @@
 import { decrypt } from './encryption-utils'
-// import { HDNode } from 'bitcoinjs-lib'
-import * as crypto from 'crypto'
+import { HDNode } from 'bitcoinjs-lib'
+import crypto from 'crypto'
 
-const logger = console;
 
 function hashCode(string) {
   let hash = 0
@@ -121,7 +120,7 @@ export function isBackupPhraseValid(backupPhrase) {
   return import(/* webpackChunkName: 'bip39' */ 'bip39').then(bip39 => {
     if (!bip39.validateMnemonic(backupPhrase)) {
       isValid = false
-      error = 'Backup phrase is not a valid set of words'
+      error = 'Backup phrase is not a valid set of words'
     }
 
     return { isValid, error }
@@ -136,13 +135,12 @@ export function decryptMasterKeychain(password, encryptedBackupPhrase) {
         const bip39 = await import(/* webpackChunkName: 'bip39' */ 'bip39')
         const backupPhrase = plaintextBuffer.toString()
         const seed = bip39.mnemonicToSeed(backupPhrase)
-        //const masterKeychain = HDNode.fromSeedBuffer(seed)
-        const masterKeychain = bip32.fromSeed(seed)
-        logger.info('decryptMasterKeychain: decrypted!')
+        const masterKeychain = HDNode.fromSeedBuffer(seed)
+        //logger.info('decryptMasterKeychain: decrypted!')
         resolve(masterKeychain)
       },
       error => {
-        logger.error('decryptMasterKeychain: error', error)
+        //logger.error('decryptMasterKeychain: error', error)
         reject(new Error('Incorrect password'))
       }
     )
@@ -436,8 +434,8 @@ export function getBlockchainIdentities(masterKeychain, identitiesToGenerate) {
 
   const firstBitcoinAddress = getBitcoinAddressNode(
     bitcoinPublicKeychainNode
-  ).getAddress();
-  
+  ).getAddress()
+
   const identityAddresses = []
   const identityKeypairs = []
 
@@ -455,7 +453,7 @@ export function getBlockchainIdentities(masterKeychain, identitiesToGenerate) {
     const identityKeyPair = deriveIdentityKeyPair(identityOwnerAddressNode)
     identityKeypairs.push(identityKeyPair)
     identityAddresses.push(identityKeyPair.address)
-    logger.debug(`createAccount: identity index: ${addressIndex}`)
+    //logger.debug(`createAccount: identity index: ${addressIndex}`)
   }
 
   return {
