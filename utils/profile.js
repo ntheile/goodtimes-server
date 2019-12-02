@@ -44,8 +44,9 @@ var _utils_1 = require("@utils"); // copied from the blockstack browser project 
 var crypto = require("crypto");
 var blockstack = require("blockstack");
 var radiks_1 = require("radiks");
-var bitcoinjs = require("bitcoinjs-lib");
+var bitcoinjs = require('bitcoinjs-lib');
 require("localstorage-polyfill");
+// @ts-ignore
 exports.initWallet = function () { return __awaiter(_this, void 0, void 0, function () {
     var masterKeychain, action, STRENGTH, backupPhraseCache, backupPhrase, seedBuffer, keychain;
     return __generator(this, function (_a) {
@@ -143,6 +144,7 @@ exports.createBlockchainIdentity = function (keychain, username, avatarUrl, iden
     if (avatarUrl === void 0) { avatarUrl = 'https://gaia.blockstack.org/hub/17xxYBCvxwrwKtAna4bubsxGCMCcVNAgyw/avatar-0'; }
     if (identitiesToGenerate === void 0) { identitiesToGenerate = 2; }
     return __awaiter(_this, void 0, void 0, function () {
+        
         var identityKeypairs, browserPublicKey, browserPrivateKey, browserKeyID, profile, userSession, profileResp, appPublicKey, appPrivateKey;
         return __generator(this, function (_a) {
             identityKeypairs = _utils_1.getBlockchainIdentities(keychain.masterKeychain, identitiesToGenerate).identityKeypairs;

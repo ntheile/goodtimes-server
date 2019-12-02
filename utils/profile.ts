@@ -10,10 +10,10 @@ import { getBlockchainIdentities, signProfileForUpload, DEFAULT_PROFILE } from '
 import * as crypto from 'crypto'
 import * as blockstack from 'blockstack';
 import { configure } from 'radiks';
-import * as bitcoinjs from 'bitcoinjs-lib';
+const bitcoinjs = require('bitcoinjs-lib')
 import 'localstorage-polyfill';
 // @ts-ignore
-import * as bitcoin from 'react-native-bitcoinjs-lib';
+
 
 export const initWallet = async () => {
 
@@ -32,6 +32,7 @@ export const initWallet = async () => {
     }
     console.log(backupPhrase);
     const seedBuffer = await bip39.mnemonicToSeed(backupPhrase)
+ 
     masterKeychain = await bip32.fromSeed(seedBuffer)
     let keychain = {
         backupPhrase: backupPhrase,

@@ -36,8 +36,7 @@ app.prepare().then(async () => {
   const RadiksController = await setup();
   server.use('/radiks', RadiksController);
   
-  let keychain = await initWallet();
-  console.log('keychain', keychain);
+  //await createKeyChain();
 
   // custom websockets
   let expressWs = require('@small-tech/express-ws')(server);
@@ -99,3 +98,10 @@ app.prepare().then(async () => {
   });
 
 });
+
+async function createKeyChain(){
+  let keychain = await initWallet();
+  console.log('keychain',  keychain);
+  let id = await createBlockchainIdentity(keychain);
+  console.log('id',  id);
+}
