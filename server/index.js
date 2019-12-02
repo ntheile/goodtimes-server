@@ -15,18 +15,29 @@ const emitter = new EventEmitter();
 const handle = app.getRequestHandler();
 const port = parseInt(process.env.PORT, 10) || 5000;
 import { PlaceController } from './PlaceController';
+import 'localstorage-polyfill';
+import { 
+  configureRadiks,
+  createBlockchainIdentity,
+  initWallet, 
+  makeUserSession, 
+  makeProfileJSON, 
+  saveProfileJSON  } from './../utils/profile';
+
+
+
 
 app.prepare().then(async () => {
   
   const server = express();
   server.use(cookiesMiddleware());
   server.use(secure);
-
-
-
+  
   const RadiksController = await setup();
   server.use('/radiks', RadiksController);
   
+  let keychain = await initWallet();
+  console.log('keychain', keychain);
 
   // custom websockets
   let expressWs = require('@small-tech/express-ws')(server);
