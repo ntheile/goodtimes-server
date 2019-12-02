@@ -19,7 +19,9 @@ import 'localstorage-polyfill';
 const fetch = require('node-fetch');
 const Window = require('window');
 const window = new Window();
-global.window = window;
+global.window = window; // for radiks to work
+global.document = window.document; // for nextjs client side dom to work
+
 import { 
   configureRadiks,
   createBlockchainIdentity,
