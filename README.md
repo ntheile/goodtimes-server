@@ -35,3 +35,16 @@ Does the room have an unexpired group key yet? (keys expire every 24 hours)
     - To mitigrate risks there should be several trusted server operators. NOT ONE CENTRAL GOD NODE. Maybe a handful of trusted operators per geographical region. For Example, Nick runs the Chicago node, Jude runs the New York Node, Alex runs the California node. 
 
 
+Group Memberships
+==================
+Since each place does not have an appointed admin for the group the server invites members to the group based on there geo-fence and liklihood they
+are actually in that location. The keys and indexed data are deleted each day.
+
+1) Server Creates a new daily group membership for the place. This expires everyday and the index is deleted out of mongodb
+2) Each server has a seed to generate the radiks sessions and group membership
+3) As users enter the room the server automatically invites them to the group and they recieve the decryption key
+4) When a user on the client creates a post, they still maintain ownership of the data in there own gaia bucket but it is encryted and indexed with 
+the group group. The indexed data is deleted each day...but the users data stays in there bucket
+
+Batch Delete Script
+
