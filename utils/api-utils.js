@@ -9,7 +9,7 @@ import {
 
 
 import { isCoreEndpointDisabled } from './window-utils'
-import { BLOCKSTACK_STATE_VERSION_KEY } from '../App'
+var BLOCKSTACK_STATE_VERSION_KEY = 'BLOCKSTACK_STATE_VERSION';
 
 export function authorizationHeaderValue(coreAPIPassword) {
   return `bearer ${coreAPIPassword}`
