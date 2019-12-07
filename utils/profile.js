@@ -47,11 +47,10 @@ var bitcoinjs = require('bitcoinjs-lib');
 require("localstorage-polyfill");
 // @ts-ignore
 exports.initWallet = function () { return __awaiter(_this, void 0, void 0, function () {
-    var masterKeychain, action, STRENGTH, backupPhraseCache, backupPhrase, seedBuffer, keychain;
+    var action, STRENGTH, backupPhraseCache, backupPhrase, keychain;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                masterKeychain = null;
                 action = 'none';
                 STRENGTH = 128 // 128 bits generates a 12 word mnemonic
                 ;
@@ -66,23 +65,38 @@ exports.initWallet = function () { return __awaiter(_this, void 0, void 0, funct
             case 2:
                 _a.sent();
                 _a.label = 3;
-            case 3:
-                console.log(backupPhrase);
-                return [4 /*yield*/, bip39.mnemonicToSeed(backupPhrase)];
+            case 3: return [4 /*yield*/, initWalletFromSeed(backupPhrase)];
             case 4:
-                seedBuffer = _a.sent();
-                return [4 /*yield*/, bitcoinjs.HDNode.fromSeedBuffer(seedBuffer)];
-            case 5:
-                masterKeychain = _a.sent();
-                keychain = {
-                    backupPhrase: backupPhrase,
-                    masterKeychain: masterKeychain,
-                    action: action
-                };
+                keychain = _a.sent();
                 return [2 /*return*/, keychain];
         }
     });
 }); };
+function initWalletFromSeed(backupPhrase) {
+    return __awaiter(this, void 0, void 0, function () {
+        var masterKeychain, action, seedBuffer, keychain;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    masterKeychain = null;
+                    action = 'none';
+                    return [4 /*yield*/, bip39.mnemonicToSeed(backupPhrase)];
+                case 1:
+                    seedBuffer = _a.sent();
+                    return [4 /*yield*/, bitcoinjs.HDNode.fromSeedBuffer(seedBuffer)];
+                case 2:
+                    masterKeychain = _a.sent();
+                    keychain = {
+                        backupPhrase: backupPhrase,
+                        masterKeychain: masterKeychain,
+                        action: action
+                    };
+                    return [2 /*return*/, keychain];
+            }
+        });
+    });
+}
+exports.initWalletFromSeed = initWalletFromSeed;
 function makeUserSession(appPrivateKey, appPublicKey, username, profileJSON, scopes, appUrl, hubUrl) {
     // see https://forum.blockstack.org/t/creating-a-usersession-using-app-private-key/8096/4
     if (profileJSON === void 0) { profileJSON = null; }

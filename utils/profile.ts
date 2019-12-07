@@ -15,8 +15,6 @@ import 'localstorage-polyfill';
 
 
 export const initWallet = async () => {
-
-    let masterKeychain = null
     let action = 'none';
     const STRENGTH = 128 // 128 bits generates a 12 word mnemonic
     // save seed phrase to SecureStorage on the device, allow the user to backup 
@@ -29,9 +27,14 @@ export const initWallet = async () => {
         backupPhrase = bip39.generateMnemonic(STRENGTH, crypto.randomBytes )
         await localStorage.setItem('backupPhrase', backupPhrase);
     }
-    console.log(backupPhrase);
+    let keychain = await initWalletFromSeed(backupPhrase);
+    return keychain;
+}
+
+export async function initWalletFromSeed(backupPhrase){
+    let masterKeychain = null
+    let action = 'none';
     const seedBuffer = await bip39.mnemonicToSeed(backupPhrase)
- 
     masterKeychain = await bitcoinjs.HDNode.fromSeedBuffer(seedBuffer)
     let keychain = {
         backupPhrase: backupPhrase,

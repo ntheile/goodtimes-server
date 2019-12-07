@@ -21,17 +21,7 @@ const Window = require('window');
 const window = new Window();
 global.window = window; // for radiks to work
 global.document = window.document; // for nextjs client side dom to work
-
-import { 
-  configureRadiks,
-  createBlockchainIdentity,
-  initWallet, 
-  makeUserSession, 
-  makeProfileJSON, 
-  saveProfileJSON  } from './../utils/profile';
-import { configure, User, UserGroup, GroupInvitation, Model, Central } from 'radiks';
-
-
+import { createKeyChain, loadServerSession } from './Keychain';
 
 
 app.prepare().then(async () => {
@@ -42,8 +32,6 @@ app.prepare().then(async () => {
   
   const RadiksController = await setup();
   server.use('/radiks', RadiksController);
-  
-  
 
   // custom websockets
   let expressWs = require('@small-tech/express-ws')(server);
@@ -87,6 +75,10 @@ app.prepare().then(async () => {
     app.render(req, res, '/user', { username });
   });
 
+  server.get('/session', (req, res) => {
+   console.log(window.session);
+  });
+
   server.get('*', (req, res) => handle(req, res));
 
   RadiksController.emitter.on(STREAM_CRAWL_EVENT, ([attrs]) => {
@@ -94,39 +86,12 @@ app.prepare().then(async () => {
   });
   
 
-
-  server.listen(port, (err) => {
+  server.listen(port, async (err) => {
     if (err) throw err;
     console.log(`> Ready on http://localhost:${port}`);
-    createKeyChain();
+    let keychain = await createKeyChain(); // or get seed from .env
+    window.session = await loadServerSession(keychain);
   });
-
-
-  
-
 });
 
-async function createKeyChain(){
-  let keychain = await initWallet();
-  //console.log('keychain',  keychain);
-  let id = await createBlockchainIdentity(keychain);
-  //console.log('id',  id);
 
-  let userSession = makeUserSession(id.appPrivateKey, id.appPublicKey, id.username, id.profileJSON.decodedToken.payload.claim);
-  //console.log('userSession', userSession);
-  await configureRadiks(userSession);
-  //console.log('config radiks sesh');
-  let blockstackUser = await User.createWithCurrentUser();
-  // console.log('blockstackUser', blockstackUser)
-  const radiksBatchAccount= {
-      backupPhrase: keychain.backupPhrase,
-      publicKey: id.appPublicKey,
-      privateKey: id.appPrivateKey,
-      userSession: userSession,
-      username: id.username,
-      error: 'none',
-      profileJSON: id.profileJSON
-  }
-  console.log('created radiksBatchAccount for the server! ', radiksBatchAccount);
-
-}
