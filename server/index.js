@@ -77,6 +77,7 @@ app.prepare().then(async () => {
 
   server.get('/session', (req, res) => {
    console.log(window.session);
+   res.send('true');
   });
 
   server.get('*', (req, res) => handle(req, res));
