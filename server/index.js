@@ -91,8 +91,10 @@ app.prepare().then(async () => {
     if (err) throw err;
     console.log(`> Ready on http://localhost:${port}`);
     let keychain = await createKeyChain(); // or get seed from .env
-    window.session = await loadServerSession(keychain);
+    window.session = await loadServerSession(keychain);  
   });
 });
+
+
 
 
