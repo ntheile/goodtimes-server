@@ -30,7 +30,7 @@ Does the room have an unexpired group key yet? (keys expire every 24 hours)
     - (repeat until the key expires)
 - (y) get the key from an admin (via web sockets) or from the central server (if empty place)
 
-**Asumptions**
+**Assumptions**
 - The central server operator is trusted, since he will be the temporary holder of the key in the event of an empty room.
     - To mitigrate risks there should be several trusted server operators. NOT ONE CENTRAL GOD NODE. Maybe a handful of trusted operators per geographical region. For Example, Nick runs the Chicago node, Jude runs the New York Node, Alex runs the California node. 
 
@@ -47,4 +47,27 @@ are actually in that location. The keys and indexed data are deleted each day.
 the group group. The indexed data is deleted each day...but the users data stays in there bucket
 
 Batch Delete Script
+====================
+server side script that deletes expired data from the database. How can you prove data was deleted and the server host is not hoarding it?
+
+Content Selection Providers
+===========================
+How should each individual's user feed have content chosen? It should be third party pluggable but
+have a really good default setting:
+
+1. Local to the user
+2. Based on the users interests
+3. promote healthiness
+4. We have local contraints built into the system... so it can be simplier than the wild-wild west global system.
+    Does it make sense to appoint a community/neighborood moderator? or let the user choose there own mod?
+    What if the local chamber of commerance ran a "server" and moderatated?  http://work.colum.edu/~amiller/wardmap.htm
+    What if a resprected community member ran it or the most popular local business?
+    Could this platform be used for neighborhood discussions? Snow plowing alerts? Block parties? Local guitar lessons?
+    Could this platform turn into a classified ad's version 2.0 for the social web?
+    Should we rename Goodtimes to The Local?
+
+
+https://www.commerce.senate.gov/2019/6/optimizing-for-engagement-understanding-the-use-of-persuasive-technology-on-internet-platforms 
+https://writings.stephenwolfram.com/2019/06/testifying-at-the-senate-about-a-i-selected-content-on-the-internet/
+
 

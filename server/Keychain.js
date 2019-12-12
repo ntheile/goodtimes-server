@@ -10,6 +10,7 @@ import { configure, User, UserGroup, GroupInvitation, Model, Central } from 'rad
 
 export async function createKeyChain(){
   let seed = process.env.SEED;
+  console.log('seed', seed);
   let keychain = await initWalletFromSeed(seed);
   return keychain;
 }

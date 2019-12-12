@@ -22,7 +22,7 @@ export  async function PlaceController (client, request) {
       // https://flaviocopes.com/node-mongodb/
       let placeKey = `place_${placeId}`;
       radiks.centralCollection.find({"_id": {$regex: placeKey} }).toArray( async (error, item) =>{
-        debugger;
+        
         if (item.length > 0){
           // grab session
           session = item;

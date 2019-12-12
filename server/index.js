@@ -76,7 +76,7 @@ app.prepare().then(async () => {
   });
 
   server.get('/session', (req, res) => {
-   console.log(window.session);
+   console.log('window.session', window.session);
    res.send('true');
   });
 
@@ -92,6 +92,8 @@ app.prepare().then(async () => {
     console.log(`> Ready on http://localhost:${port}`);
     let keychain = await createKeyChain(); // or get seed from .env
     window.session = await loadServerSession(keychain);  
+    console.log('keychain', keychain);
+    console.log('window.session', window.session);
   });
 });
 

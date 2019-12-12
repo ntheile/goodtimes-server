@@ -10,9 +10,9 @@
     "yarn": "1.17.3"
   },
   "scripts": {
-    "dev": "set NODE_ENV=development && yarn babel-node server ",
-    "startnew": "NODE_ENV=development yarn babel-node server",
-    "start": "NODE_ENV=production && yarn babel-node server",
+    "dev": "set NODE_ENV=development && npm run babel-node server ",
+    "startnew": "NODE_ENV=development npm run babel-node server",
+    "start": "NODE_ENV=production && npm run babel-node server --inspect-brk",
     "now-build": "NODE_ENV=production && yarn babel-node server",
     "startlinux": "NODE_ENV=production yarn babel-node server",
     "nodemon": "NODE_ENV=development nodemon -x 'yarn babel-node server/index.js'",

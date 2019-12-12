@@ -83,7 +83,7 @@ function rando(){
 export async function GenGroupKeyPutCentral(placeId){
 
     const key = "place_" + placeId;
-
+    console.log('creating place ' + placeId);
     let group = await createRadiksGroup(key);
     const value = { group: group };
     await Central.save(key, value);
@@ -91,5 +91,3 @@ export async function GenGroupKeyPutCentral(placeId){
     console.log('created central', result);
     return group;
 }
-
-  
