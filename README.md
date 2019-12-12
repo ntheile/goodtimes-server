@@ -70,4 +70,23 @@ have a really good default setting:
 https://www.commerce.senate.gov/2019/6/optimizing-for-engagement-understanding-the-use-of-persuasive-technology-on-internet-platforms 
 https://writings.stephenwolfram.com/2019/06/testifying-at-the-senate-about-a-i-selected-content-on-the-internet/
 
+Radiks Server per Community (Radiverse vs ActivityPub)
+========================================================
+Each local community has the option to host there own goodtimes-server. Little communication needs to occur between federated servers because of the local nature of the network...but some things need to be replicated amongst the federation, such as reputation.  By default a community uses the servers chosen by Goodtimes. ie. https://goodtimes-server.herokuapp.com/ , but if, for example, a local chamber of commerence wanted to run a node they could. This would require a subdomain registration to update the global server index (with an overridable option in user settings):
+
+default node - https://goodtimes-server.herokuapp.com
+chicago node - https://goodtimes-server-chicago.herokuapp.com
+chicago ward 47 node - https://goodtimes-server.chicagoward47.gov
+
+The local node operator would be responible for the following:
+1. Content Feed Selection provider (default or custom 3rd party provider)
+2. Moderating people and content
+3. Take Down notices
+
+# Reputation System
+If a user gains reputation points by the local node operator then they are the issuing signer. How can we trust this local reputation signer amongst the rest of our federation (web of trust?)
+
+
+
+
 
