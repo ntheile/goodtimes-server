@@ -7,6 +7,7 @@ require('dotenv').config();
 const { setup } = require('radiks-server');
 const { STREAM_CRAWL_EVENT } = require('radiks-server/app/lib/constants');
 const makeApiController = require('./ApiController');
+const PlaceInfoController = require('./PlaceInfoController.js');
 const notifier = require('../common/lib/notifier');
 const EventEmitter = require('wolfy87-eventemitter');
 const dev = process.env.NODE_ENV !== 'production';
@@ -64,6 +65,8 @@ app.prepare().then(async () => {
   });
 
   server.use('/api', makeApiController(RadiksController.DB));
+  server.use('/placeinfo', PlaceInfoController(RadiksController.DB));
+
   
   server.get('/messages/:id', (req, res) => {
     const { id } = req.params;
