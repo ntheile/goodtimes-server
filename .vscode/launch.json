@@ -12,7 +12,10 @@
         "--nolazy"
       ],
       "port": 9229,
-      "timeout": 1000000
+      "timeout": 1000000,
+      "outFiles": [
+        "${workspaceRoot}//**.js"
+      ]
     },
     {
       "type": "node",
