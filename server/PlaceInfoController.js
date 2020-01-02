@@ -12,35 +12,39 @@ const PlaceInfoController = (db) => {
     const { lat, long } = req.params;
 
     // get all 8 hashes
-    let precision = 9;
-    const geohash9 = Geohash.encode(lat, long, precision);
-    const geohash8 = Geohash.encode(lat, long, 8);
-    const geohash = Geohash.encode(lat, long, 2);
+    let precision = 9; // 1 whole world, 9 exact location
+    let headcount = 0;
+    let geohash = Geohash.encode(lat, long, precision);
     
-    console.log('geohash9', geohash9);
-    var query = {_id: { $regex: geohash9 }};
-
     try{
-      let headcount = await geohashQuery(query);
-      res.json({ count: headcount });
+      while(headcount < minPeopleCount && precision != 0) {
+        geohash = Geohash.encode(lat, long, precision);
+        var query = {_id: { $regex: geohash }};
+        headcount = await geohashQuery(query);
+        if (headcount < minPeopleCount){
+          precision--;
+        }
+      }
+      res.json({ 
+        geohash,
+        count: headcount 
+      });
     } catch(e){
      res.json({ error: e });
     }
       
-
   });
 
   async function geohashQuery(query){
     let cursor = db.collection("radiks-central-data").find(query);
     let result = await cursor.toArray();
-    console.log('result of query', result);
-    try{
+    // console.log('result of query', result);
+    try {
        const headcount = result[0].group.attrs.members.length;
        return headcount;
     } catch(e){
       return 0;
     }
-    
   }
 
   return Router;
