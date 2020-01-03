@@ -12,7 +12,8 @@
   "scripts": {
     "dev": "set NODE_ENV=development && npm run babel-node server/start.js ",
     "startnew": "NODE_ENV=development npm run babel-node server/start.js",
-    "start": "NODE_ENV=production && npm run babel-node --debug -- server/start.js --debug --inspect-brk",
+    "debug": "NODE_ENV=production && npm run babel-node  --debug -- server/start.js --debug --inspect-brk",
+    "start": "NODE_ENV=production && npm run babel-node server/start.js --inspect-brk",
     "now-build": "NODE_ENV=production && yarn babel-node server/start.js",
     "startlinux": "NODE_ENV=production yarn babel-node server/start.js",
     "nodemon": "nodemon -x 'npm run start'",

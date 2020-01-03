@@ -8,7 +8,7 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": [
         "run-script",
-        "start",
+        "debug",
         "--nolazy"
       ],
       "port": 9229,
