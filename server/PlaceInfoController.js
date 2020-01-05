@@ -8,7 +8,22 @@ const PlaceInfoController = (db) => {
   
   const Router = decorateApp(express.Router());
 
-  Router.getAsync('/headcount/:lat/:long', async (req, res) => {
+  Router.getAsync('/headcount/:geohash', async (req, res) => {
+    const { geohash } = req.params;
+   
+      let query = {_id: { $regex: geohash }};
+      let headcount = await geohashQuery(query);
+      res.json({ 
+        geohash,
+        count: headcount 
+      });
+   
+      //res.json({ error: e });
+   
+  });
+
+
+  Router.getAsync('/nearest/populated/:lat/:long', async (req, res) => {
     const { lat, long } = req.params;
 
     // get all 8 hashes

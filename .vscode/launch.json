@@ -14,7 +14,7 @@
       "port": 9229,
       "timeout": 1000000,
       "outFiles": [
-        "${workspaceRoot}//**.js"
+        "${workspaceRoot}/**.js"
       ]
     },
     {
