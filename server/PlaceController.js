@@ -52,7 +52,8 @@ export  async function PlaceController (client, request) {
 
   // listen to changes on radiks models
   this.RadiksController.emitter.on(constants.STREAM_CRAWL_EVENT,  ([attrs]) => {
-    console.log('Place radiks emmitter called ==========> ', attrs);
+    // console.log('Place radiks emmitter called ==========> ', attrs);
+    console.log('Place radiks emmitter called ==========>');
     //check the model placeId to see if it matched
     if (('/place/' + attrs.placeId) == client.room){
       client.send(JSON.stringify(attrs));
