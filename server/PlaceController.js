@@ -55,7 +55,7 @@ export  async function PlaceController (client, request) {
     // console.log('Place radiks emmitter called ==========> ', attrs);
     console.log('Place radiks emmitter called ==========>');
     //check the model placeId to see if it matched
-    if (('/place/' + attrs.placeId) == client.room){
+    if (('/place/' + attrs.geohash) == client.room){
       client.send(JSON.stringify(attrs));
     }
   });
