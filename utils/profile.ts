@@ -89,7 +89,7 @@ export const saveProfileJSON = async (userSession: any, profileJSON: any) => {
 
 export function configureRadiks(userSession: any) {
     configure({
-        apiServer: `http://localhost:5000`,  
+        apiServer: process.env.RADIKS_API_SERVER, //`http://localhost:5000`,  
         userSession: userSession
     });
 }

@@ -143,7 +143,7 @@ exports.saveProfileJSON = function (userSession, profileJSON) { return __awaiter
 }); };
 function configureRadiks(userSession) {
     radiks_1.configure({
-        apiServer: "http://localhost:5000",
+        apiServer: process.env.RADIKS_API_SERVER,
         userSession: userSession
     });
 }
