@@ -136,6 +136,7 @@ function createRadiksGroup(groupName) {
                     return [3 /*break*/, 4];
                 case 3:
                     e_1 = _a.sent();
+                    console.log(' error', e_1);
                     return [3 /*break*/, 4];
                 case 4:
                     console.log('groupResp', groupResp);
@@ -207,6 +208,7 @@ function GenGroupKeyPutCentral(placeId) {
             switch (_a.label) {
                 case 0:
                     key = "place_" + placeId;
+                    console.log('creating place ' + placeId);
                     return [4 /*yield*/, createRadiksGroup(key)];
                 case 1:
                     group = _a.sent();

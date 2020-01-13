@@ -51,7 +51,7 @@ export async function createRadiksGroup(groupName: string){
     try{
         groupResp =  await group.create();
     } catch(e) {
-
+        console.log(' error', e);
     }
     console.log('groupResp', groupResp);
     return groupResp;
