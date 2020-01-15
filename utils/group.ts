@@ -12,7 +12,8 @@ export async function radiksPutMessage(text: string) {
         votes: []
     });
     let resp = await message.save();
-    console.log('radiks resp', resp);
+    //console.log('radiks resp', resp);
+    console.log('radiks resp');
 }
 
 export async function radiksPutEncryptedGroupMessage(text: string) {
@@ -25,7 +26,8 @@ export async function radiksPutEncryptedGroupMessage(text: string) {
         userGroupId: ''
         });
     let resp = await m.save();
-    console.log('radiks resp encrypted msg', resp);
+    // console.log('radiks resp encrypted msg', resp);
+    console.log('radiks resp encrypted msg');
 }
 
 export async function radiksPutCentral(){
@@ -33,7 +35,8 @@ export async function radiksPutCentral(){
     const value = { email: 'myemail@example.com' };
     await Central.save(key, value);
     const result = await Central.get(key);
-    console.log(result); // { email: 'myemail@example.com' }
+    // console.log(result); // { email: 'myemail@example.com' }
+    console.log('radiksPutCentral');
 }
 
     
@@ -42,7 +45,8 @@ export async function radiksPutCentral(){
 export async function radiksGetMessage() {
     // @ts-ignore
     let messages = await Message.fetchList({  });
-    console.log('get messages ', messages);
+    // console.log('get messages ', messages);
+    console.log('get messages ');
 }
 
 export async function createRadiksGroup(groupName: string){
@@ -51,9 +55,10 @@ export async function createRadiksGroup(groupName: string){
     try{
         groupResp =  await group.create();
     } catch(e) {
-        console.log(' error', e);
+        console.log('error', e);
     }
-    console.log('groupResp', groupResp);
+    // console.log('groupResp', groupResp);
+    console.log('groupResp');
     return groupResp;
 }
 
@@ -72,7 +77,8 @@ export async function acceptInvitation(myInvitationID: string){
 
 export async function viewMyGroups(){
     const groups = await UserGroup.myGroups();
-    console.log('My groups', groups);
+    // console.log('My groups', groups);
+    console.log('My groups');
 }
 
 function rando(){
@@ -88,6 +94,7 @@ export async function GenGroupKeyPutCentral(placeId){
     const value = { group: group };
     await Central.save(key, value);
     const result = await Central.get(key);
-    console.log('created central', result);
+    // console.log('created central', result);
+    console.log('created central');
     return group;
 }

@@ -52,7 +52,8 @@ function radiksPutMessage(text) {
                     return [4 /*yield*/, message.save()];
                 case 1:
                     resp = _a.sent();
-                    console.log('radiks resp', resp);
+                    //console.log('radiks resp', resp);
+                    console.log('radiks resp');
                     return [2 /*return*/];
             }
         });
@@ -75,7 +76,8 @@ function radiksPutEncryptedGroupMessage(text) {
                     return [4 /*yield*/, m.save()];
                 case 1:
                     resp = _a.sent();
-                    console.log('radiks resp encrypted msg', resp);
+                    // console.log('radiks resp encrypted msg', resp);
+                    console.log('radiks resp encrypted msg');
                     return [2 /*return*/];
             }
         });
@@ -96,7 +98,8 @@ function radiksPutCentral() {
                     return [4 /*yield*/, radiks_1.Central.get(key)];
                 case 2:
                     result = _a.sent();
-                    console.log(result); // { email: 'myemail@example.com' }
+                    // console.log(result); // { email: 'myemail@example.com' }
+                    console.log('radiksPutCentral');
                     return [2 /*return*/];
             }
         });
@@ -112,7 +115,8 @@ function radiksGetMessage() {
                 case 0: return [4 /*yield*/, Message_1["default"].fetchList({})];
                 case 1:
                     messages = _a.sent();
-                    console.log('get messages ', messages);
+                    // console.log('get messages ', messages);
+                    console.log('get messages ');
                     return [2 /*return*/];
             }
         });
@@ -136,10 +140,11 @@ function createRadiksGroup(groupName) {
                     return [3 /*break*/, 4];
                 case 3:
                     e_1 = _a.sent();
-                    console.log(' error', e_1);
+                    console.log('error', e_1);
                     return [3 /*break*/, 4];
                 case 4:
-                    console.log('groupResp', groupResp);
+                    // console.log('groupResp', groupResp);
+                    console.log('groupResp');
                     return [2 /*return*/, groupResp];
             }
         });
@@ -191,7 +196,8 @@ function viewMyGroups() {
                 case 0: return [4 /*yield*/, radiks_1.UserGroup.myGroups()];
                 case 1:
                     groups = _a.sent();
-                    console.log('My groups', groups);
+                    // console.log('My groups', groups);
+                    console.log('My groups');
                     return [2 /*return*/];
             }
         });
@@ -219,7 +225,8 @@ function GenGroupKeyPutCentral(placeId) {
                     return [4 /*yield*/, radiks_1.Central.get(key)];
                 case 3:
                     result = _a.sent();
-                    console.log('created central', result);
+                    // console.log('created central', result);
+                    console.log('created central');
                     return [2 /*return*/, group];
             }
         });

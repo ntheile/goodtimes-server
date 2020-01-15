@@ -12,13 +12,15 @@ const { sendMail, mentionedEmail } = require('../mailer');
 mentionPlugin(linkify);
 
 const handleNewModel = async (db, attrs) => {
-  console.log('emitter', attrs);
+  // console.log('emitter', attrs);
+  console.log('emitter');
   if (attrs.radiksType !== 'Message') {
     return true;
   }
 
   const { content, createdBy } = attrs;
-  console.log(`@${createdBy}: ${content}`);
+  //console.log(`@${createdBy}: ${content}`);
+  console.log(`@${createdBy}`);
   const matches = linkify.find(content);
   const mentions = {};
 
