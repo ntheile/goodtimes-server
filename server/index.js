@@ -23,21 +23,22 @@ const window = new Window();
 global.window = window; // for radiks to work
 global.document = window.document; // for nextjs client side dom to work
 import { createKeyChain, loadServerSession } from './Keychain';
-
+// const { createServer } = require('http');
+// const { parse } = require('url');
 
 app.prepare().then(async () => {
-  
+
   const server = express();
   server.use(cookiesMiddleware());
   server.use(secure);
-  
+
   const RadiksController = await setup();
   server.use('/radiks', RadiksController);
 
   // custom websockets
-  let expressWs = require('@small-tech/express-ws')(server);
-  expressWs.RadiksController = RadiksController;
-  server.ws(`/place/:placeId`, PlaceController);  
+  // let expressWs = require('@small-tech/express-ws')(server);
+  // expressWs.RadiksController = RadiksController;
+  // server.ws(`/place/:placeId`, PlaceController);  
 
   server.use((req, res, _next) => {
     if (dev) {
@@ -67,7 +68,7 @@ app.prepare().then(async () => {
   server.use('/api', makeApiController(RadiksController.DB));
   server.use('/placeinfo', PlaceInfoController(RadiksController.DB));
 
-  
+
   server.get('/messages/:id', (req, res) => {
     const { id } = req.params;
     app.render(req, res, '/message', { id });
@@ -79,8 +80,8 @@ app.prepare().then(async () => {
   });
 
   server.get('/session', (req, res) => {
-   console.log('window.session', window.session);
-   res.send('true');
+    console.log('window.session', window.session);
+    res.send('true');
   });
 
   server.get('*', (req, res) => handle(req, res));
@@ -88,16 +89,56 @@ app.prepare().then(async () => {
   RadiksController.emitter.on(STREAM_CRAWL_EVENT, ([attrs]) => {
     notifier(RadiksController.DB, attrs);
   });
-  
 
-  server.listen(port, async (err) => {
+
+  const serverInstance = server.listen(port, async (err) => {
     if (err) throw err;
     console.log(`> Ready on http://localhost:${port}`);
     let keychain = await createKeyChain(); // or get seed from .env
-    window.session = await loadServerSession(keychain);  
+    window.session = await loadServerSession(keychain);
     console.log('keychain', keychain);
     console.log('window.session', window.session);
   });
+
+
+  // socket io
+  const io = require('socket.io')(serverInstance);
+  const ClientManager = require('./chat/ClientManager')
+  const ChatroomManager = require('./chat/ChatroomManager')
+  const makeHandlers = require('./chat/handlers')
+  const clientManager = ClientManager()
+  const chatroomManager = ChatroomManager()
+
+  io.on('connection', function (client) {
+    const {
+      handleRegister,
+      handleJoin,
+      handleLeave,
+      handleMessage,
+      handleGetChatrooms,
+      handleGetAvailableUsers,
+      handleDisconnect
+    } = makeHandlers(client, clientManager, chatroomManager)
+  
+    console.log('client connected...', client.id)
+    clientManager.addClient(client)
+    client.on('register', handleRegister)
+    client.on('join', handleJoin)
+    client.on('leave', handleLeave)
+    client.on('message', handleMessage)
+    client.on('chatrooms', handleGetChatrooms)
+    client.on('availableUsers', handleGetAvailableUsers)
+    client.on('disconnect', function () {
+      console.log('client disconnect...', client.id)
+      handleDisconnect()
+    })
+    client.on('error', function (err) {
+      console.log('received error from client:', client.id)
+      console.log(err)
+    })
+  })
+  
+
 });
 
 
