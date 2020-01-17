@@ -31,9 +31,9 @@ app.prepare().then(async () => {
   const server = express();
   server.use(cookiesMiddleware());
   server.use(secure);
-
   const RadiksController = await setup();
   server.use('/radiks', RadiksController);
+ 
 
   // custom websockets
   // let expressWs = require('@small-tech/express-ws')(server);
@@ -86,9 +86,7 @@ app.prepare().then(async () => {
 
   server.get('*', (req, res) => handle(req, res));
 
-  RadiksController.emitter.on(STREAM_CRAWL_EVENT, ([attrs]) => {
-    notifier(RadiksController.DB, attrs);
-  });
+
 
 
   const serverInstance = server.listen(port, async (err) => {
@@ -101,13 +99,13 @@ app.prepare().then(async () => {
   });
 
 
-  // socket io
+ 
   const io = require('socket.io')(serverInstance);
   io.on('connection', function (socket) {
     console.log('new connection');
-    
+
     // join room
-    socket.on('join', (room)  => {
+    socket.on('join', (room) => {
       PlaceController(io, socket, room, RadiksController)
     });
 
@@ -116,8 +114,16 @@ app.prepare().then(async () => {
     //   console.log('message', message);
     //   io.in(room).emit('message', message);
     // });
-  })
-  
+  });
+
+  RadiksController.emitter.on(STREAM_CRAWL_EVENT, ([attrs]) => {
+    notifier(RadiksController.DB, attrs);
+    if (attrs.geohash){
+      let room = attrs.geohash;
+      io.in(room).emit('message', attrs);
+    }
+  });
+
 
 });
 
