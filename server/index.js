@@ -103,39 +103,19 @@ app.prepare().then(async () => {
 
   // socket io
   const io = require('socket.io')(serverInstance);
-  const ClientManager = require('./chat/ClientManager')
-  const ChatroomManager = require('./chat/ChatroomManager')
-  const makeHandlers = require('./chat/handlers')
-  const clientManager = ClientManager()
-  const chatroomManager = ChatroomManager()
+  io.on('connection', function (socket) {
+    console.log('new connection');
+    
+    // join room
+    socket.on('join', (room)  => {
+      PlaceController(io, socket, room, RadiksController)
+    });
 
-  io.on('connection', function (client) {
-    const {
-      handleRegister,
-      handleJoin,
-      handleLeave,
-      handleMessage,
-      handleGetChatrooms,
-      handleGetAvailableUsers,
-      handleDisconnect
-    } = makeHandlers(client, clientManager, chatroomManager)
-  
-    console.log('client connected...', client.id)
-    clientManager.addClient(client)
-    client.on('register', handleRegister)
-    client.on('join', handleJoin)
-    client.on('leave', handleLeave)
-    client.on('message', handleMessage)
-    client.on('chatrooms', handleGetChatrooms)
-    client.on('availableUsers', handleGetAvailableUsers)
-    client.on('disconnect', function () {
-      console.log('client disconnect...', client.id)
-      handleDisconnect()
-    })
-    client.on('error', function (err) {
-      console.log('received error from client:', client.id)
-      console.log(err)
-    })
+    // // broadcast room messages
+    // socket.on('message', ({room, message })  => {
+    //   console.log('message', message);
+    //   io.in(room).emit('message', message);
+    // });
   })
   
 
