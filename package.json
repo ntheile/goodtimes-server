@@ -10,7 +10,8 @@
     "yarn": "1.17.3"
   },
   "scripts": {
-    "prestart": "tsc",
+    "tsc": "tsc",
+    "prestart": "npm run tsc",
     "dev": "set NODE_ENV=development && npm run babel-node server/start.js ",
     "startnew": "NODE_ENV=development npm run babel-node server/start.js",
     "debug": "NODE_ENV=development && npm run babel-node  --debug -- server/start.js --debug --inspect-brk",
@@ -18,9 +19,8 @@
     "now-build": "NODE_ENV=production && yarn babel-node server/start.js",
     "startlinux": "NODE_ENV=production yarn babel-node server/start.js",
     "nodemon": "nodemon -x 'npm run start'",
-    "build": "next build && tsc",
+    "build": "next build",
     "heroku-postbuild": "next build",
-    "postinstall": "npm run build",
     "live-logging": "heroku logs --app goodtimes-server --tail",
     "lint": "eslint ./common/**/*.js ./components/**/*.js ./pages/**/*.js --fix",
     "prettier": "prettier --config .prettierrc ./common/**/*.js ./components/**/*.js ./pages/**/*.js",
