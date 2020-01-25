@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const model_1 = require("radiks/lib/model");
 class EncryptedMessage extends model_1.default {
 }
+exports.default = EncryptedMessage;
 EncryptedMessage.className = 'EncryptedMessage';
 EncryptedMessage.schema = {
     content: {
@@ -26,5 +27,4 @@ EncryptedMessage.schema = {
         decrypted: true,
     }
 };
-exports.default = EncryptedMessage;
 //# sourceMappingURL=EncryptedMessage.js.map

@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -18,7 +19,7 @@ const radiks_1 = require("radiks");
 const bitcoinjs = require('bitcoinjs-lib');
 require("localstorage-polyfill");
 // @ts-ignore
-exports.initWallet = () => __awaiter(this, void 0, void 0, function* () {
+exports.initWallet = () => __awaiter(void 0, void 0, void 0, function* () {
     let action = 'none';
     const STRENGTH = 128; // 128 bits generates a 12 word mnemonic
     // save seed phrase to SecureStorage on the device, allow the user to backup 
@@ -79,7 +80,7 @@ function makeProfileJSON(profile, keypair, api) {
     return profileJSON;
 }
 exports.makeProfileJSON = makeProfileJSON;
-exports.saveProfileJSON = (userSession, profileJSON) => __awaiter(this, void 0, void 0, function* () {
+exports.saveProfileJSON = (userSession, profileJSON) => __awaiter(void 0, void 0, void 0, function* () {
     let resp = yield userSession.putFile('profile.json', JSON.stringify(profileJSON), { encrypt: false, contentType: 'application/json' });
     return resp;
 });
@@ -94,7 +95,7 @@ function rando() {
     return (Math.floor(Math.random() * 100000) + 100000).toString().substring(1);
 }
 exports.rando = rando;
-exports.createBlockchainIdentity = (keychain, username = "good" + rando() + '.id.blockstack', avatarUrl = 'https://gaia.blockstack.org/hub/17xxYBCvxwrwKtAna4bubsxGCMCcVNAgyw/avatar-0', identitiesToGenerate = 2) => __awaiter(this, void 0, void 0, function* () {
+exports.createBlockchainIdentity = (keychain, username = "good" + rando() + '.id.blockstack', avatarUrl = 'https://gaia.blockstack.org/hub/17xxYBCvxwrwKtAna4bubsxGCMCcVNAgyw/avatar-0', identitiesToGenerate = 2) => __awaiter(void 0, void 0, void 0, function* () {
     const { identityKeypairs } = _utils_1.getBlockchainIdentities(keychain.masterKeychain, identitiesToGenerate);
     // use identity 0 for blockstack browser and profile
     let browserPublicKey = identityKeypairs[0].address;
