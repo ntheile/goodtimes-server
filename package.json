@@ -10,6 +10,7 @@
     "yarn": "1.17.3"
   },
   "scripts": {
+    "prestart": "tsc",
     "dev": "set NODE_ENV=development && npm run babel-node server/start.js ",
     "startnew": "NODE_ENV=development npm run babel-node server/start.js",
     "debug": "NODE_ENV=development && npm run babel-node  --debug -- server/start.js --debug --inspect-brk",

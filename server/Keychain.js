@@ -26,6 +26,7 @@ export async function loadServerSession(keychain){
   //console.log('config radiks sesh');
   let blockstackUser = await User.createWithCurrentUser();
   // console.log('blockstackUser', blockstackUser)
+  
   const radiksBatchAccount= {
       backupPhrase: keychain.backupPhrase,
       publicKey: id.appPublicKey,

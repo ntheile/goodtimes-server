@@ -92,14 +92,9 @@ app.prepare().then(async () => {
   const serverInstance = server.listen(port, async (err) => {
     if (err) throw err;
     console.log(`> Ready on http://localhost:${port}`);
-    let keychain = await createKeyChain(); // or get seed from .env
-    window.session = await loadServerSession(keychain);
-    console.log('keychain', keychain);
-    console.log('window.session', window.session);
   });
 
 
- 
   const io = require('socket.io')(serverInstance);
   io.on('connection', function (socket) {
     console.log('new connection');
@@ -124,6 +119,10 @@ app.prepare().then(async () => {
     }
   });
 
+  let keychain = await createKeyChain(); // or get seed from .env
+  window.session = await loadServerSession(keychain);
+  console.log('keychain', keychain);
+  console.log('window.session', window.session);
 
 });
 

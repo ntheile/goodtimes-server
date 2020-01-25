@@ -58,11 +58,12 @@ export async function createRadiksGroup(groupName: string){
         console.log('error', e);
     }
     // console.log('groupResp', groupResp);
-    console.log('groupResp');
+    console.log('created group ' + groupName);
     return groupResp;
 }
 
 export async function inviteMember(groupId: string, userToInvite: string){
+    console.log(`invited ${userToInvite} to group: ${groupId}`)
     let group = await UserGroup.findById(groupId);
     const usernameToInvite = userToInvite;
     const invitation = await group.makeGroupMembership(usernameToInvite);
@@ -72,13 +73,13 @@ export async function inviteMember(groupId: string, userToInvite: string){
 export async function acceptInvitation(myInvitationID: string){
     const invitation  = await GroupInvitation.findById(myInvitationID);
     await invitation.activate();
-    console.log('Accepted Invitation');
+    console.log(`Accepted Invitation ${myInvitationID}` );
 }
 
 export async function viewMyGroups(){
     const groups = await UserGroup.myGroups();
     // console.log('My groups', groups);
-    console.log('My groups');
+    console.log('My groups ');
 }
 
 function rando(){
@@ -87,14 +88,13 @@ function rando(){
 
    
 export async function GenGroupKeyPutCentral(placeId){
-
     const key = "place_" + placeId;
     console.log('creating place ' + placeId);
     let group = await createRadiksGroup(key);
     const value = { group: group };
     await Central.save(key, value);
     const result = await Central.get(key);
-    // console.log('created central', result);
-    console.log('created central');
+    console.log('created central group in GenGroupKeyPutCentral', result);
+    // console.log('created central');
     return group;
 }
