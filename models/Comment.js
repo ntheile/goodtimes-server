@@ -5,7 +5,6 @@ const model_1 = require("radiks/lib/model");
 // @ts-ignore
 class Comment extends model_1.default {
 }
-exports.default = Comment;
 Comment.className = 'Comment';
 Comment.schema = {
     text: {
@@ -21,4 +20,5 @@ Comment.schema = {
         decrypted: true,
     }
 };
+exports.default = Comment;
 //# sourceMappingURL=Comment.js.map
