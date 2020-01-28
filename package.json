@@ -13,7 +13,7 @@
     "dev": "set NODE_ENV=development && npm run babel-node server/start.js ",
     "startnew": "NODE_ENV=development npm run babel-node server/start.js",
     "debug": "tsc && NODE_ENV=development && npm run babel-node  --debug -- server/start.js --debug --inspect-brk",
-    "start": "NODE_ENV=production && npm run babel-node server/start.js",
+    "start": "NODE_ENV=production && npm run babel-node --optimize_for_size --max_old_space_size=460 --gc_interval=100 server/start.js",
     "now-build": "NODE_ENV=production && yarn babel-node server/start.js",
     "startlinux": "NODE_ENV=production yarn babel-node server/start.js",
     "nodemon": "nodemon -x 'npm run start'",
