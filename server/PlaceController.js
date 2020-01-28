@@ -36,7 +36,7 @@ export async function PlaceController(io, socket, room, RadiksController) {
             // create room session
             // 1) create a new Group membership for the room that will last 1 day
             // createRadiksGroup
-            session = await GenGroupKeyPutCentral(placeId, userToInvite);
+            // session = await GenGroupKeyPutCentral(placeId, userToInvite);
 
           }
 
@@ -44,7 +44,7 @@ export async function PlaceController(io, socket, room, RadiksController) {
 
 
           // 2) Invite the requesting users public key to the room.
-          inviteMemberIfNotExists(placeId, null);
+          // inviteMemberIfNotExists(placeId, null);
           // 3) send request back to user to accept 
           // client accepts like this
 
