@@ -44,7 +44,7 @@ export async function PlaceController(io, socket, room, RadiksController) {
 
 
           // 2) Invite the requesting users public key to the room.
-          inviteMemberIfNotExists(placeId, );
+          inviteMemberIfNotExists(placeId, null);
           // 3) send request back to user to accept 
           // client accepts like this
 
